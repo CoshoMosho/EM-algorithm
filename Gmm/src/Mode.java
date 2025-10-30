@@ -1,4 +1,4 @@
 
 public enum Mode {
-	RANDOM1
+	RANDOM1HARD,RANDOM1SOFT
 }

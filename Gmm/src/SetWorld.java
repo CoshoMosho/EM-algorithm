@@ -19,18 +19,18 @@ public class SetWorld {
 
 	private static double[] getModeNormal(Mode mode, int npoints) {
 		switch (mode) {
-		case RANDOM1:
-			return buildIt(npoints);
+		case RANDOM1HARD:
+			return randomSampling(npoints);
 		default:
-			return buildIt(npoints);
+			return randomSampling(npoints);
 		}
 	}
 
-	private static double[] buildIt(int npoints) {
+	private static double[] randomSampling(int npoints) {
 
 		UniformRandomProvider rng = RandomSource.MT.create();
 
-		double[] gaussParameters = getGaussianParams(rng);
+		double[] gaussParameters = GaussianOperations.getGaussianParams(rng);
 		int[] pointsProportions = getPointsProportions(rng, npoints);
 
 		ArrayList<Double> samples = new ArrayList<Double>();
@@ -54,17 +54,6 @@ public class SetWorld {
 		return new int[] { n1, n2 };
 	}
 
-	private static double[] getGaussianParams(UniformRandomProvider rng) {
-
-		double mean1 = rng.nextDouble(-5.0, 0.0);
-		double sigma1 = rng.nextDouble(0.5, 2.0);
-
-		double mean2 = rng.nextDouble(0.0, 5.0);
-		double sigma2 = rng.nextDouble(0.5, 2.0);
-		System.out.printf("G1: mean=%.2f sigma=%.2f ", mean1, sigma1);
-		System.out.printf("G2: mean=%.2f sigma=%.2f ", mean2, sigma2);
-		System.out.println();
-		return new double[] { mean1, sigma1, mean2, sigma2 };
-	}
+	
 
 }
