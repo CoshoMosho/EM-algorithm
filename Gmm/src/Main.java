@@ -22,7 +22,7 @@ public class Main {
 		allParameters = em.solve(Type.NORMAL, Mode.RANDOM1);
 		System.out.println(allParameters);
 		System.out.println(gaussianPdf(0, 0, 1));
-		
+		PlotUtils.plotClusters(points, em.clusterAssignment);
 
 		
 	}
