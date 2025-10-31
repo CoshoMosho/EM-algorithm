@@ -6,6 +6,9 @@ import org.apache.commons.rng.sampling.distribution.GaussianSampler;
 import org.apache.commons.rng.sampling.distribution.NormalizedGaussianSampler;
 import org.apache.commons.rng.simple.RandomSource;
 
+import utils.GaussianOperations;
+import utils.Util;
+
 public class SetWorld {
 
 	public static double[] getPoints(Type type, Mode mode, int npoints) {
@@ -30,8 +33,8 @@ public class SetWorld {
 
 		UniformRandomProvider rng = RandomSource.MT.create();
 
-		double[] gaussParameters = GaussianOperations.getGaussianParams(rng);
-		int[] pointsProportions = getPointsProportions(rng, npoints);
+		double[] gaussParameters = GaussianOperations.getRandomGaussianParams(rng);
+		int[] pointsProportions = Util.getPointsProportions(rng, npoints);
 
 		ArrayList<Double> samples = new ArrayList<Double>();
 
@@ -44,15 +47,7 @@ public class SetWorld {
 		return samples.stream().mapToDouble(Double::doubleValue).toArray();
 	}
 
-	private static int[] getPointsProportions(UniformRandomProvider rng, int npoints) {
-		int n1 = rng.nextInt(20, npoints - 20);
-		int n2 = npoints - n1;
-		System.out.printf("G1: (%d punti)%n", n1);
-		System.out.printf("G2: (%d punti)%n", n2);
-		System.out.println();
-
-		return new int[] { n1, n2 };
-	}
+	
 
 	
 

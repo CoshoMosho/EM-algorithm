@@ -10,23 +10,24 @@ public class GaussianOperations {
 		return a * b;
 	}
 
-	public static double[] getGaussianParams(UniformRandomProvider rng, int gaussiansNumber, double maxMean,
+	public static double[] getRandomGaussianParams(UniformRandomProvider rng, int gaussiansNumber, double maxMean,
 			double minMean, double maxSigma, double minSigma) {
 
 		// return mean,sigma of normal dist in double array and in sequence
 		// mean0,sd0,mean1,sd1 and so on
-		double[] params = new double[gaussiansNumber];
+		double[] params = new double[2*gaussiansNumber];
 		for (int i = 0; i < gaussiansNumber; i++) {
 			params[2 * i] = rng.nextDouble(minMean, maxMean);
-			params[1 + 2 * i] = rng.nextDouble(minMean, maxMean);
+			params[1 + 2 * i] = rng.nextDouble(minSigma, maxSigma);
 			System.out.println();
 			System.out.printf("Generated gaussian parameters: mean=%.2f sigma=%.2f ", params[2 * i], params[1 + 2 * i]);
+			System.out.println();
 		}
 		return params;
 	}
 
-	public static double[] getGaussianParams(UniformRandomProvider rng) {
+	public static double[] getRandomGaussianParams(UniformRandomProvider rng) {
 		// standardTest
-		return getGaussianParams(rng, 2, 5.0, -5.0, 2.0, 0);
+		return getRandomGaussianParams(rng, 2, 5.0, -5.0, 2.0, 0);
 	}
 }

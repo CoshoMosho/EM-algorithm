@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import org.apache.commons.rng.UniformRandomProvider;
 import org.apache.commons.rng.simple.RandomSource;
 
+import utils.GaussianOperations;
+
 public class EmProcessing {
 
 	double[] points; // input data
@@ -73,7 +75,7 @@ public class EmProcessing {
 			params[1] = Math.sqrt(var0);
 			params[2] = mean1;
 			params[3] = Math.sqrt(var1);
-
+			
 			System.out.printf("Iter %d: G1 μ=%.3f σ=%.3f | G2 μ=%.3f σ=%.3f%n", it + 1, params[0], params[1], params[2],
 					params[3]);
 		}
@@ -103,7 +105,7 @@ public class EmProcessing {
 			clusterAssignment[i] = rng.nextInt(2);
 		}
 
-		params = GaussianOperations.getGaussianParams(rng);
+		params = GaussianOperations.getRandomGaussianParams(rng);
 	}
 
 }

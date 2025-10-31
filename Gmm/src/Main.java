@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import utils.GaussianOperations;
 
 public class Main {
 
@@ -24,7 +27,6 @@ public class Main {
 		System.out.println(GaussianOperations.gaussianPdf(0, 0, 1));
 		PlotUtils.plotClusters(points, em.clusterAssignment);
 
-		
 	}
 
 }
