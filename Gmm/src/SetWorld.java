@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.math4.legacy.distribution.MultivariateNormalDistribution;
 import org.apache.commons.math4.legacy.distribution.MultivariateRealDistribution.Sampler;
@@ -10,26 +12,18 @@ import utils.Util;
 
 public class SetWorld {
 
-	private ArrayList<MultivariateNormalDistribution> mvns;
-	private ArrayList<double[]> points;
+	private final List<MultivariateNormalDistribution> mvns;
+	private final List<double[]> points;
 
-	private SetWorld(ArrayList<MultivariateNormalDistribution> mvns, ArrayList<double[]> points) {
-		this.mvns = mvns;
-		this.points = points;
+	private SetWorld(List<MultivariateNormalDistribution> mvns, List<double[]> points) {
+		this.mvns = new ArrayList<>(Objects.requireNonNull(mvns, "mvns cannot be null"));
+		this.points = new ArrayList<>(Objects.requireNonNull(points, "points cannot be null"));
 	};
 
 	public static SetWorld getPoints(DistributionType type, int dimension, int clusters, int nTotalpoints) {
 
-		// input few controls
-		if (clusters <= 0) {
-			throw new IllegalArgumentException("clusters must be > 0, got: " + clusters);
-		}
-		if (nTotalpoints <= 0) {
-			throw new IllegalArgumentException("nTotalpoints must be > 0, got: " + nTotalpoints);
-		}
-		if (nTotalpoints < clusters) {
-			throw new IllegalArgumentException("nTotalpoints must be >= clusters");
-		}
+		// few controls on inputs
+		validateInputParameters(dimension, clusters, nTotalpoints);
 		UniformRandomProvider rng = RandomSource.MT.create();
 
 		// just 1 case for now
@@ -45,10 +39,10 @@ public class SetWorld {
 	private static SetWorld generateNormalRandom2Variate(int clusters, int nTotalpoints, int dimension,
 			UniformRandomProvider rng) {
 
-		ArrayList<double[]> points = new ArrayList<double[]>();
-		ArrayList<MultivariateNormalDistribution> mvns = new ArrayList<MultivariateNormalDistribution>();
+		List<double[]> points = new ArrayList<>(nTotalpoints);
+		List<MultivariateNormalDistribution> mvns = new ArrayList<>(clusters);
 		int[] pointsProportions = Util.getPointsProportions(rng, nTotalpoints, clusters);
-		for (int c = 0; c < clusters; c++) {
+		for (int cluster = 0; cluster < clusters; cluster++) {
 
 			double[] mean = GaussianOperations.getRandomMeanVector(rng, dimension);
 			double[][] covMatrix = GaussianOperations.getRandomCovarianceMatrix(rng, dimension);
@@ -56,7 +50,7 @@ public class SetWorld {
 			MultivariateNormalDistribution mvn = new MultivariateNormalDistribution(mean, covMatrix);
 			Sampler sampler = mvn.createSampler(rng);
 			mvns.add(mvn);
-			for (int i = 0; i < pointsProportions[c]; i++) {
+			for (int i = 0; i < pointsProportions[cluster]; i++) {
 				points.add(sampler.sample());
 			}
 		}
@@ -64,12 +58,46 @@ public class SetWorld {
 
 	}
 
-	public ArrayList<MultivariateNormalDistribution> getMvns() {
-		return mvns;
+	private static void validateInputParameters(int dimension, int clusters, int nTotalPoints) {
+		if (dimension <= 0) {
+			throw new IllegalArgumentException("Dimension must be > 0, got: " + dimension);
+		}
+		if (clusters <= 0) {
+			throw new IllegalArgumentException("Clusters must be > 0, got: " + clusters);
+		}
+		if (nTotalPoints <= 0) {
+			throw new IllegalArgumentException("nTotalPoints must be > 0, got: " + nTotalPoints);
+		}
+		if (nTotalPoints < clusters) {
+			throw new IllegalArgumentException(
+					"nTotalPoints must be >= clusters, got: " + nTotalPoints + " < " + clusters);
+		}
 	}
 
-	public ArrayList<double[]> getPoints() {
-		return points;
+	public List<MultivariateNormalDistribution> getMvns() {
+		return new ArrayList<>(mvns);
+	}
+
+	public List<double[]> getPoints() {
+		return new ArrayList<>(points);
+	}
+
+	public int getTotalPoints() {
+		return points.size();
+	}
+
+	public int getNumberOfClusters() {
+		return mvns.size();
+	}
+
+	public int getDimension() {
+		return !points.isEmpty() ? points.get(0).length : 0;
+	}
+
+	@Override
+	public String toString() {
+		return "SetWorld [getTotalPoints()=" + getTotalPoints() + ", getNumberOfClusters()=" + getNumberOfClusters()
+				+ ", getDimension()=" + getDimension() + "]";
 	}
 
 }

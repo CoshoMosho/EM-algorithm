@@ -1,9 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.apache.commons.math4.legacy.distribution.MultivariateNormalDistribution;
-import org.apache.commons.math4.legacy.linear.RealMatrix;
 
 import utils.Util;
 
@@ -18,14 +15,17 @@ public class Main {
 		 */
 
 		// setting parameters and generating points
-		final int totalPointsNumber = 1000;
-		final int variatesDimension = 10;
-		final int nClusters = 6;
+		final int totalPointsNumber = 100;
+		final int variatesDimension = 4;
+		final int nClusters = 3;
 		SetWorld sw = SetWorld.getPoints(DistributionType.NORMAL, variatesDimension, nClusters, totalPointsNumber);
-		ArrayList<MultivariateNormalDistribution> mvns = sw.getMvns();
-		ArrayList<double[]> points = sw.getPoints();
+		List<MultivariateNormalDistribution> mvns = sw.getMvns();
+		List<double[]> points = sw.getPoints();
 		Util.printGaussianParameters(mvns);
 		Util.printFirst30Points(points);
+		
+		
+		//EM Algorithm
 		
 
 		

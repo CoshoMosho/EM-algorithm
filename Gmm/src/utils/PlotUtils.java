@@ -1,3 +1,4 @@
+package utils;
 import org.knowm.xchart.*;
 import java.util.*;
 

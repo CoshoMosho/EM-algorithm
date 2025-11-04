@@ -1,7 +1,7 @@
 package utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.math4.legacy.distribution.MultivariateNormalDistribution;
@@ -35,7 +35,7 @@ public class Util {
 		return Arrays.stream(matrix.getData()).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]"));
 	}
 
-	public static void printGaussianParameters(ArrayList<MultivariateNormalDistribution> mvns) {
+	public static void printGaussianParameters(List<MultivariateNormalDistribution> mvns) {
 		System.out.println("=== MULTIVARIATE NORMAL DISTRIBUTIONS ===");
 		mvns.forEach(mvn -> {
 			double[] mean = mvn.getMeans();
@@ -46,12 +46,12 @@ public class Util {
 		});
 	}
 
-	public static void printAllPoints(ArrayList<double[]> points) {
+	public static void printAllPoints(List<double[]> points) {
 		System.out.println("\n=== GENERATED POINTS ===");
 		points.stream().map(Arrays::toString).forEach(System.out::println);
 	}
 
-	public static void printFirst30Points(ArrayList<double[]> points) {
+	public static void printFirst30Points(List<double[]> points) {
 		System.out.println("\n=== 30 POINTS ===");
 		points.stream().limit(30).map(Arrays::toString).forEach(System.out::println);
 	}
