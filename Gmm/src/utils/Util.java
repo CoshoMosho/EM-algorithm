@@ -1,5 +1,11 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import org.apache.commons.math4.legacy.distribution.MultivariateNormalDistribution;
+import org.apache.commons.math4.legacy.linear.RealMatrix;
 import org.apache.commons.rng.UniformRandomProvider;
 
 public class Util {
@@ -23,6 +29,31 @@ public class Util {
 		System.out.println();
 
 		return part;
+	}
+
+	public static String matrixToString(RealMatrix matrix) {
+		return Arrays.stream(matrix.getData()).map(Arrays::toString).collect(Collectors.joining(", ", "[", "]"));
+	}
+
+	public static void printGaussianParameters(ArrayList<MultivariateNormalDistribution> mvns) {
+		System.out.println("=== MULTIVARIATE NORMAL DISTRIBUTIONS ===");
+		mvns.forEach(mvn -> {
+			double[] mean = mvn.getMeans();
+			RealMatrix covariance = mvn.getCovariances();
+
+			System.out.println("Mean: " + Arrays.toString(mean));
+			System.out.println("Covariance: " + Util.matrixToString(covariance));
+		});
+	}
+
+	public static void printAllPoints(ArrayList<double[]> points) {
+		System.out.println("\n=== GENERATED POINTS ===");
+		points.stream().map(Arrays::toString).forEach(System.out::println);
+	}
+
+	public static void printFirst30Points(ArrayList<double[]> points) {
+		System.out.println("\n=== 30 POINTS ===");
+		points.stream().limit(30).map(Arrays::toString).forEach(System.out::println);
 	}
 
 }

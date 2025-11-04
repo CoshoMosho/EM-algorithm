@@ -11,9 +11,9 @@ import utils.Util;
 public class SetWorld {
 
 	private ArrayList<MultivariateNormalDistribution> mvns;
-	private double[][] points;
+	private ArrayList<double[]> points;
 
-	private SetWorld(ArrayList<MultivariateNormalDistribution> mvns, double[][] points) {
+	private SetWorld(ArrayList<MultivariateNormalDistribution> mvns, ArrayList<double[]> points) {
 		this.mvns = mvns;
 		this.points = points;
 	};
@@ -60,8 +60,7 @@ public class SetWorld {
 				points.add(sampler.sample());
 			}
 		}
-		double[][] pointsArray = points.stream().toArray(double[][]::new);
-		return new SetWorld(mvns, pointsArray);
+		return new SetWorld(mvns, points);
 
 	}
 
@@ -69,7 +68,7 @@ public class SetWorld {
 		return mvns;
 	}
 
-	public double[][] getPoints() {
+	public ArrayList<double[]> getPoints() {
 		return points;
 	}
 
