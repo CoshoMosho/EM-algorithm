@@ -1,31 +1,30 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import utils.GaussianOperations;
+import org.apache.commons.math4.legacy.distribution.MultivariateNormalDistribution;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 		/*
-		 * Type NORMAL is default type - if working with normal distribution 
-		 * Mode Random1 means we're choosing 2 univariate gaussians with mean and variance randomly
-		 * choosed in a predefined interval
+		 * Type NORMAL (distribution) is default type Mode RANDOMMULTIVARIATE2 means
+		 * we're choosing multiunivariate gaussians with mean and variance randomly
+		 * choosed in a predefined interval Hard and soft mode follows EM theory
 		 */
 
-		int npoints = 100;
-		double[] points = SetWorld.getPoints(Type.NORMAL, Mode.RANDOM1HARD, npoints);
-		for (double d : points) {
-			//System.out.println(d);
-		}
+		// setting parameters and generating points
+		final int totalPointsNumber = 100;
+		final int variatesDimension = 3;
+		final int nClusters = 3;
+		SetWorld sw = SetWorld.getPoints(DistributionType.NORMAL, variatesDimension, nClusters,
+				totalPointsNumber);
+		ArrayList<MultivariateNormalDistribution> mvns = sw.getMvns();
 		
-		
-		ArrayList<Double> allParameters;
-		EmProcessing em = new EmProcessing(points);
-		allParameters = em.solve(Type.NORMAL, Mode.RANDOM1HARD);
-		System.out.println(allParameters);
-		System.out.println(GaussianOperations.gaussianPdf(0, 0, 1));
-		PlotUtils.plotClusters(points, em.clusterAssignment);
+
+		// EM algorithm
+		//EmProcessing em = new EmProcessing(points, nClusters);
+		//em.solve(DistributionType.NORMAL, Mode.SOFTSOLVING);
+		//System.out.println(em.getParams());
 
 	}
 
