@@ -1,3 +1,4 @@
+package utils;
 
 public enum Mode {
 	HARDSOLVING,SOFTSOLVING,RANDOM2VARIATE

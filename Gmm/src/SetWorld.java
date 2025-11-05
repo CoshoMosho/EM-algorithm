@@ -7,6 +7,7 @@ import org.apache.commons.math4.legacy.distribution.MultivariateRealDistribution
 import org.apache.commons.rng.UniformRandomProvider;
 import org.apache.commons.rng.simple.RandomSource;
 
+import utils.DistributionType;
 import utils.GaussianOperations;
 import utils.Util;
 
