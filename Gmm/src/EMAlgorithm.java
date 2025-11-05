@@ -254,10 +254,11 @@ public class EMAlgorithm {
         return logLikelihood;
     }
 
-    // ================== STATIC FACTORY ==================
-
     public static EMResult clusterPoints(List<double[]> points, int clusters) {
-        return clusterPoints(points, clusters, 100, 1e-6);
+    	//check these parameters here!
+    	final int maxIterations = 100;
+    	final double tolerance = 1e-6;
+        return clusterPoints(points, clusters, maxIterations, tolerance);
     }
 
     public static EMResult clusterPoints(List<double[]> points, int clusters, int maxIterations, double tolerance) {
