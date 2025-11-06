@@ -53,3 +53,8 @@ The goal is to provide a **comprehensive understanding** of how the EM algorithm
 - Cluster assignments and probabilistic responsibilities
 - Estimated distribution parameters (means, covariances, weights)
 - Convergence statistics and model evaluation metrics
+
+### Most Important Improvements to be done
+- Kmeans for means initialization
+- fix plotting
+- more distributions type

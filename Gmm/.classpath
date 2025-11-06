@@ -36,7 +36,6 @@
 	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/commons-math4-4.0-beta1-bin/commons-math-4.0-beta1/commons-math4-transform-4.0-beta1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/commons-math4-4.0-beta1-bin/commons-math-4.0-beta1/commons-math4-transform-4.0-beta1-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/commons-math4-4.0-beta1-bin/commons-math-4.0-beta1/commons-math4-transform-4.0-beta1-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/xchart-3.8.7.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/commons-numbers-core-1.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/mavip/Documents/GitHub/EM-algorithm/Gmm/commons-statistics-distribution-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>

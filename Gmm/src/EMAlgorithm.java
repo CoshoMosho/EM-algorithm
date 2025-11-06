@@ -22,7 +22,7 @@ public class EMAlgorithm {
     private double[][] responsibilities;
     private double logLikelihood;
 
-    // cache delle distribuzioni aggiornate a ogni iterazione
+    // distributions cache
     private List<MultivariateNormalDistribution> distributions;
 
     public EMAlgorithm(List<double[]> points, int clusters, int maxIterations, double tolerance) {
@@ -46,6 +46,12 @@ public class EMAlgorithm {
         if (clusters > points.size()) {
             throw new IllegalArgumentException("More clusters than points");
         }
+        if (dimension <= 0) {
+            throw new IllegalArgumentException("Dimension cannot be <= 0");
+        }
+        if (maxIterations <= 0) {
+            throw new IllegalArgumentException("MaxIterations cannot be <= 0");
+        }
     }
 
     private void initializeParameters() {
@@ -54,12 +60,12 @@ public class EMAlgorithm {
         covariances = new ArrayList<>();
         responsibilities = new double[points.size()][clusters];
 
-        // Uniform weights
+        // Uniform weights initialization
         for (int k = 0; k < clusters; k++) {
             weights.add(1.0 / clusters);
         }
-
-        // Initial means: random points from dataset
+        
+        // Initial means: random points from dataset //way better with Kmeans!!
         Random random = new Random();
         for (int k = 0; k < clusters; k++) {
             int randomIndex = random.nextInt(points.size());
@@ -95,7 +101,7 @@ public class EMAlgorithm {
 
             double diff = Math.abs(logLikelihood - oldLogLikelihood);
             if (diff < tolerance) {
-                System.out.printf("EM converged after %d iterations (ΔLL=%.6e)\n", iteration + 1, diff);
+                System.out.printf("EM converged after %d iterations\n", iteration + 1, diff);
                 break;
             }
 
@@ -111,7 +117,7 @@ public class EMAlgorithm {
         logLikelihood = 0.0;
         int n = points.size();
 
-        // aggiorna distribuzioni per i parametri correnti
+        // update distributions with current parameterss
         distributions = new ArrayList<>(clusters);
         for (int k = 0; k < clusters; k++) {
             distributions.add(new MultivariateNormalDistribution(means.get(k), covariances.get(k).getData()));
@@ -208,7 +214,7 @@ public class EMAlgorithm {
         }
     }
 
-    // ================== GETTERS ==================
+    // --------Getters
 
     public List<Integer> getClusterAssignments() {
         List<Integer> assignments = new ArrayList<>();
