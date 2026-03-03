@@ -10,6 +10,8 @@ This project implements the **Expectation-Maximization (EM) algorithm** for **mu
 
 The goal is to provide a **comprehensive understanding** of how the EM algorithm works with multivariate distributions, including parameter estimation, cluster assignment, and convergence behavior.
 
+more on https://en.wikipedia.org/wiki/Expectation%E2%80%93maximization_algorithm
+
 ---
 
 ## 🚀 What the Program Does
